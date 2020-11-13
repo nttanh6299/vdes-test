@@ -1,9 +1,7 @@
 import React from 'react';
 
-import CounterContainer from '@containers/CounterContainer';
-
 const Index: React.FC = () => {
-  return <CounterContainer />;
+  return null;
 };
 
 export default Index;

@@ -1,0 +1,88 @@
+@import '@common/css/variables';
+
+.filter {
+  .input_group + .input_group {
+    margin-top: 16px;
+  }
+
+  .input_group {
+    input + input {
+      margin-left: 4px;
+    }
+
+    input[type='text'],
+    input[type='date'],
+    select,
+    textarea {
+      display: inline-block;
+      width: 100%;
+      border: 1px solid #ddd;
+      padding: 6px 12px;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    input[type='date'] {
+      padding: 6px 6px 6px 12px;
+    }
+
+    .label {
+      display: block;
+      margin-bottom: 10px;
+      color: $c-blue;
+      font-weight: 600;
+    }
+
+    .checkbox + .checkbox {
+      margin-top: 10px;
+    }
+
+    .checkbox {
+      label {
+        display: flex;
+        align-items: center;
+
+        input {
+          margin-right: 8px;
+        }
+      }
+    }
+
+    .more {
+      margin-top: 10px;
+      font-weight: 600;
+      color: $c-orange;
+      cursor: pointer;
+    }
+  }
+
+  .input_inline {
+    display: flex;
+
+    & > input {
+      flex: 1;
+    }
+  }
+
+  .search {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border-radius: 4px;
+
+    input[type='text'] {
+      flex: 1;
+      border: none;
+      padding: 0;
+    }
+
+    svg {
+      path {
+        fill: #333;
+        stroke: #333;
+      }
+    }
+  }
+}
