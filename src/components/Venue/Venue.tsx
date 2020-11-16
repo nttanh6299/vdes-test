@@ -5,13 +5,16 @@ import FilterOptions from '@components/FilterOptions/FilterOptions';
 import { RowType, GridType } from '@components/Icon';
 
 import { FILTER_VENUE } from '@constants/FilterConstants';
+import { IVenueProduct } from '@constants/Type';
 
 import firebase from '../../../config/firebase-config';
 
 import styles from './Venue.module.scss';
+import VenueProduct from '@components/Product/VenueProduct';
 
 const Venue = ({ query }) => {
   const [params, setParams] = useState<object>({});
+  const [data, setData] = useState<IVenueProduct[]>([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -27,17 +30,38 @@ const Venue = ({ query }) => {
 
       setParams(paramsFromUrl);
     }
-
-    const a = firebase
-      .firestore()
-      .collection('venues')
-      .get()
-      .then(test => {
-        test.docs.map(doc => console.log(doc.data()));
-      });
   }, []);
 
-  const fetchData = (filteredParams: object = {}) => {
+  const fetchData = (filteredParams: any = {}) => {
+    setParams({ ...filteredParams });
+
+    firebase
+      .firestore()
+      .collection('venues')
+      .where('eventTypes', 'array-contains', filteredParams.eventType || '')
+      .where('spaceType', 'in', filteredParams.spaceTypes || [''])
+      .get()
+      .then(res => {
+        setData(
+          res.docs.map(doc => {
+            const resData = doc.data();
+
+            let product: IVenueProduct = {
+              id: doc.id,
+              address: resData.address,
+              eventTypes: resData.eventTypes,
+              image: resData.image,
+              name: resData.name,
+              price: resData.price,
+              province: resData.province,
+              spaceType: resData.spaceType
+            };
+
+            return product;
+          })
+        );
+      });
+
     const queryString = Object.keys(filteredParams)
       .reduce((res, key) => {
         if (filteredParams[key]) {
@@ -51,9 +75,6 @@ const Venue = ({ query }) => {
         return res;
       }, [])
       .join('&');
-
-    setParams({ ...filteredParams });
-
     router.push({ pathname: '/venue', query: queryString });
   };
 
@@ -110,6 +131,11 @@ const Venue = ({ query }) => {
                 <GridType />
               </div>
             </div>
+          </div>
+          <div className={styles.venue_list}>
+            {data?.map(prod => (
+              <VenueProduct key={prod.id} {...prod} />
+            ))}
           </div>
         </div>
       </div>
