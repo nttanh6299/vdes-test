@@ -12,7 +12,6 @@ interface Props {
 }
 
 const FilterOptions: React.FC<Props> = ({ dataFilter, params, fetchData }) => {
-  console.log(params);
   const onTextChange = e => {
     const { name, value } = e.target;
   };
