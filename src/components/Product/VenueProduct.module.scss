@@ -1,0 +1,36 @@
+.venue_prod {
+  background-color: #fff;
+
+  .inner {
+    border: 1px solid #ddd;
+
+    .info {
+      padding: 14px;
+      color: #333;
+
+      .name {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .address {
+        display: block;
+        font-size: 12px;
+        margin-bottom: 8px;
+      }
+
+      .price {
+        font-size: 12px;
+        display: block;
+
+        span {
+          color: #fdae02;
+        }
+      }
+    }
+  }
+}
